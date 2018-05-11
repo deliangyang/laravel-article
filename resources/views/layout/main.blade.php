@@ -57,5 +57,7 @@
 <script type="text/javascript" src="/js/wangEditor.min.js"></script>
 <script src="{{ mix('/js/ylaravel.js') }}"></script>
 
+@stack('script')
+
 </body>
 </html>

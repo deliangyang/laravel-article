@@ -35,10 +35,25 @@ class PostLogsController extends Controller
      */
     public function store(Request $request)
     {
-        $post_id = $request->post('post_id');
+        $data = $request->all();
+        $post_id = isset($data['post_id']) ? $data['post_id'] : 0;
+        $time = 10;
         $ip = $request->ip();
 
-        PostLogs::findOrCreate($post_id);
+        $logs = PostLogs::where('post_id', '=', $post_id)
+            ->where('ip', '=', $ip)
+            ->first();
+        if (!$logs) {
+            $logs = new PostLogs();
+            $logs->post_id = $post_id;
+            $logs->ip = $ip;
+            $logs->viewed_time = $time;
+        } else {
+            $logs->viewed_time += $time;
+        }
+        $logs->save();
+
+        return [];
     }
 
     /**

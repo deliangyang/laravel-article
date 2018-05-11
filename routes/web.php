@@ -50,4 +50,7 @@ Route::get('/logout', "\App\Http\Controllers\LoginController@logout");
 Route::get('/register', "\App\Http\Controllers\RegisterController@index");
 Route::post('/register', "\App\Http\Controllers\RegisterController@register");
 
+
+Route::resource('/post/logs', 'PostLogsController');
+
 include_once("admin.php");

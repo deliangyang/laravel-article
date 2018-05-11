@@ -1,4 +1,3 @@
-
 @extends("layout.main")
 
 @section("content")
@@ -7,20 +6,21 @@
     <div class="col-sm-8 blog-main">
         <div class="blog-post">
             <div style="display:inline-flex">
-                    <h2 class="blog-post-title">{{$post->title}}</h2>
-                    @if (Auth::user()->can('update', $post))
-                    <a style="margin: auto"  href="/posts/{{$post->id}}/edit">
+                <h2 class="blog-post-title">{{$post->title}}</h2>
+                @if (Auth::user()->can('update', $post))
+                    <a style="margin: auto" href="/posts/{{$post->id}}/edit">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>
-                    @endif
-                    @if (Auth::user()->can('update', $post))
-                    <a style="margin: auto"  href="/posts/{{$post->id}}/delete">
+                @endif
+                @if (Auth::user()->can('update', $post))
+                    <a style="margin: auto" href="/posts/{{$post->id}}/delete">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </a>
-                    @endif
+                @endif
             </div>
 
-            <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="#">{{$post->user->name}}</a></p>
+            <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a
+                        href="#">{{$post->user->name}}</a></p>
 
             <p>{!! $post->content !!}</p>
             <div>
@@ -40,12 +40,12 @@
             <!-- List group -->
             <ul class="list-group">
                 @foreach($post->comments as $comment)
-                <li class="list-group-item">
-                    <h5>{{$comment->created_at}} by {{$comment->user->name}}</h5>
-                    <div>
-                        {{$comment->content}}
-                    </div>
-                </li>
+                    <li class="list-group-item">
+                        <h5>{{$comment->created_at}} by {{$comment->user->name}}</h5>
+                        <div>
+                            {{$comment->content}}
+                        </div>
+                    </li>
                 @endforeach
             </ul>
         </div>
@@ -73,3 +73,23 @@
 
 
 @endsection
+@push('script')
+    <script type="text/javascript">
+        var post_id = '{{ $post->id }}';
+        var timer = setInterval(function () {
+            $.ajax({
+                url: '/post/logs',
+                data: {
+                    post_id: post_id,
+                    _token: '{{ csrf_token() }}',
+                    _method: 'post',
+                },
+                dataType: 'json',
+                type: 'post',
+                success: function (res) {
+                    console.log(res)
+                }
+            });
+        }, 10000);
+    </script>
+@endpush

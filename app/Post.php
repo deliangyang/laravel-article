@@ -2,7 +2,7 @@
 
 namespace App;
 
-use \App\Model;
+use App\Model\PostLogs;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -111,7 +111,7 @@ class Post extends Model
 
     public function recommend()
     {
-
+        PostLogs::where();
     }
 
 }

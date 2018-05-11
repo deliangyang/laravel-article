@@ -2,6 +2,12 @@
 
 namespace App;
 
+/**
+ * App\AdminPermission
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\AdminRole[] $roles
+ * @mixin \Eloquent
+ */
 class AdminPermission extends Model
 {
     /*

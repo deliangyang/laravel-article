@@ -4,6 +4,13 @@ namespace App;
 
 use \App\Model;
 
+/**
+ * App\Fan
+ *
+ * @property-read \App\User $fuser
+ * @property-read \App\User $suser
+ * @mixin \Eloquent
+ */
 class Fan extends Model
 {
     protected $table = "fans";

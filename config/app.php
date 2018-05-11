@@ -180,6 +180,7 @@ return [
         //Laravel\Scout\ScoutServiceProvider::class,
         //ScoutEngines\Elasticsearch\ElasticsearchProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
     ],
 

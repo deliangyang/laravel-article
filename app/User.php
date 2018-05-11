@@ -5,6 +5,17 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * App\User
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Fan[] $fans
+ * @property-read mixed $avatar
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Notice[] $notices
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Post[] $posts
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Fan[] $stars
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable
 {
     use Notifiable;

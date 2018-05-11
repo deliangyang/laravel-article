@@ -6,6 +6,19 @@ use \App\Model;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * App\Post
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\PostTopic[] $postTopics
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Topic[] $topics
+ * @property-read \App\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Zan[] $zans
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post authorBy($user_id)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post aviable()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post topicNotBy($topic_id)
+ * @mixin \Eloquent
+ */
 class Post extends Model
 {
     //use Searchable;

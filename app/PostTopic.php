@@ -3,6 +3,12 @@
 namespace App;
 
 
+/**
+ * App\PostTopic
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\PostTopic inTopic($topic_id)
+ * @mixin \Eloquent
+ */
 class PostTopic extends Model
 {
     protected $table = "post_topics";

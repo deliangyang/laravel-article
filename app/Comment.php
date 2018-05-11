@@ -4,6 +4,13 @@ namespace App;
 
 use \App\Model;
 
+/**
+ * App\Comment
+ *
+ * @property-read \App\Post $post
+ * @property-read \App\User $user
+ * @mixin \Eloquent
+ */
 class Comment extends Model
 {
     protected $table = "comments";

@@ -2,6 +2,12 @@
 
 namespace App;
 
+/**
+ * App\Topic
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Post[] $posts
+ * @mixin \Eloquent
+ */
 class Topic extends Model
 {
     protected $table = "topics";

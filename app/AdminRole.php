@@ -3,6 +3,12 @@
 namespace App;
 
 
+/**
+ * App\AdminRole
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\AdminPermission[] $permissions
+ * @mixin \Eloquent
+ */
 class AdminRole extends Model
 {
     protected $table = "admin_roles";

@@ -113,7 +113,7 @@ class PostController extends Controller
         ]);
 
         $query = request('query');
-        $posts = Post::search(request('query'))->paginate(10);
+        $posts = Post::where('title', 'like', "%{$query}%")->paginate(10);
         return view('post/search', compact('posts', 'query'));
     }
 }

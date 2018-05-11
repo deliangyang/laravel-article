@@ -7,3 +7,4 @@ Homestead.yaml
 .tags
 .tags1
 vendor
+storage/*

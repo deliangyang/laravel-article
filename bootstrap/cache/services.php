@@ -28,9 +28,7 @@
     24 => 'App\\Providers\\AuthServiceProvider',
     25 => 'App\\Providers\\EventServiceProvider',
     26 => 'App\\Providers\\RouteServiceProvider',
-    27 => 'Laravel\\Scout\\ScoutServiceProvider',
-    28 => 'ScoutEngines\\Elasticsearch\\ElasticsearchProvider',
-    29 => 'Barryvdh\\Debugbar\\ServiceProvider',
+    27 => 'Barryvdh\\Debugbar\\ServiceProvider',
   ),
   'eager' => 
   array (
@@ -48,9 +46,7 @@
     11 => 'App\\Providers\\AuthServiceProvider',
     12 => 'App\\Providers\\EventServiceProvider',
     13 => 'App\\Providers\\RouteServiceProvider',
-    14 => 'Laravel\\Scout\\ScoutServiceProvider',
-    15 => 'ScoutEngines\\Elasticsearch\\ElasticsearchProvider',
-    16 => 'Barryvdh\\Debugbar\\ServiceProvider',
+    14 => 'Barryvdh\\Debugbar\\ServiceProvider',
   ),
   'deferred' => 
   array (

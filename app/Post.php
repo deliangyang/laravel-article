@@ -108,4 +108,10 @@ class Post extends Model
         return $query->whereIn('status', [0, 1]);
     }
 
+
+    public function recommend()
+    {
+
+    }
+
 }

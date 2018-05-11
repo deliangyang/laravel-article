@@ -47,6 +47,9 @@ class PostController extends Controller
 
     public function show(\App\Post $post)
     {
+        $post->viewed += 1;
+        $post->save();
+
         return view('post/show', compact('post'));
     }
 

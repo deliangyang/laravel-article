@@ -19,10 +19,20 @@
                 @endif
             </div>
 
-            <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a
-                        href="#">{{$post->user->name}}</a></p>
+            <div style="word-wrap: break-word; word-break: normal; ">
+                <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by
+                    <a target="_blank" href="/user/{{ $post->user->id }}">{{$post->user->name}}</a>
+                    @if ($favorite)
+                        <a class="favorite cancel" href="javascript://">取消收藏</a>
+                        @else
+                        <a class="favorite add" href="javascript://">收藏</a>
+                    @endif
+                </p>
 
-            <p>{!! $post->content !!}</p>
+                <p>
+                    {!! $post->content !!}
+                </p>
+            </div>
             <div>
                 @if($post->zan(\Auth::id())->exists())
                     <a href="/posts/{{$post->id}}/unzan" type="button" class="btn btn-default btn-lg">取消赞</a>
@@ -60,7 +70,12 @@
                     {{csrf_field()}}
                     <input type="hidden" name="post_id" value="{{$post->id}}"/>
                     <li class="list-group-item">
-                        <textarea name="content" class="form-control" rows="10"></textarea>
+                        <textarea name="content" class="form-control" rows="10">{{ old('content') }}</textarea>
+                        @if ($errors->has('content'))
+                            <span style="color: red;" class="help-block">
+				                <strong>{{ $errors->first('content') }}</strong>
+			                </span>
+                        @endif
                         <button class="btn btn-default" type="submit">提交</button>
                     </li>
                 </form>
@@ -91,5 +106,36 @@
                 }
             });
         }, 10000);
+
+        $('.favorite.cancel').on('click', function() {
+            $.ajax({
+                url: '/favorite/' + post_id,
+                data: {
+                    post_id: post_id,
+                    _token: '{{ csrf_token() }}',
+                    _method: 'DELETE',
+                },
+                dataType: 'json',
+                type: 'post',
+                success: function (res) {
+                    window.location.reload();
+                }
+            });
+        });
+        $('.favorite.add').on('click', function() {
+            $.ajax({
+                url: '/favorite',
+                data: {
+                    post_id: post_id,
+                    _token: '{{ csrf_token() }}',
+                    _method: 'POST',
+                },
+                dataType: 'json',
+                type: 'post',
+                success: function (res) {
+                    window.location.reload();
+                }
+            });
+        });
     </script>
 @endpush

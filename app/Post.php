@@ -111,7 +111,36 @@ class Post extends Model
 
     public function recommend()
     {
-        PostLogs::where();
+        $key = 'recommend:all';
+        if ($data = \Cache::get($key)) {
+            return $data;
+        }
+        $viewedTimes = PostLogs::select(\DB::raw('sum(viewed_time) as total_viewed_time, post_id'))
+            ->groupBy('post_id')
+            ->orderBy('total_viewed_time', 'desc')
+            ->limit(5)
+            ->get(['post_id']);
+
+        $viewedCounters = Post::orderBy('viewed', 'desc')
+            ->limit(5)
+            ->get(['id']);
+
+        $_viewedTimes = [];
+        foreach ($viewedTimes as $k => $viewedTime) {
+            $_viewedTimes[] = $viewedTime->post_id;
+        }
+
+        $_viewedCounters = [];
+        foreach ($viewedCounters as $k => $viewedCounter) {
+            $_viewedCounters[] = $viewedCounter->id;
+        }
+
+        $postIds = array_intersect($_viewedTimes, $_viewedCounters);
+        $postIds = array_slice($postIds,0, 5);
+        $posts = Post::whereIn('id', $postIds)
+                    ->get();
+        \Cache::put($key, $posts, 10);
+        return $posts;
     }
 
 }

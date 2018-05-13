@@ -51,6 +51,12 @@ class User extends Authenticatable
         return $this->hasMany(\App\Fan::class, 'star_id', 'id');
     }
 
+    public function favorite()
+    {
+        return $this->hasMany(Favorite::class, 'user_id', 'id')
+            ->with('post');
+    }
+
     /*
      * 当前这个人是否被uid粉了
      */

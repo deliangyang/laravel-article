@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Favorite;
 use Illuminate\Http\Request;
 use App\Post;
 
@@ -15,18 +16,25 @@ class PostController extends Controller
         $user = \Auth::user();
         $posts = Post::aviable()->orderBy('created_at', 'desc')->withCount(["zans", "comments"])->with(['user'])->paginate(6);
 //作者 创建时间降序排列 赞 评论 分页 6
-        return view('post/index', compact('posts'));
+
+        $post = new Post();
+        $recommend = $post->recommend();
+        return view('post/index', compact('posts', 'recommend'));
     }
 
     public function imageUpload(Request $request)
     {
-        $path = $request->file('wangEditorH5File')->storePublicly(md5(\Auth::id() . time()));
+        $path = $request->file('wangEditorH5File')
+            ->storePublicly(md5(\Auth::id() . time()));
         return asset('storage/'. $path);
     }
 
     public function create()
     {
-        return view('post/create');
+        $post = new Post();
+        $recommend = $post->recommend();
+        return view('post/create')
+            ->with(compact('recommend'));
     }
 
     public function store(Request $request)
@@ -47,10 +55,21 @@ class PostController extends Controller
 
     public function show(\App\Post $post)
     {
+        $user = \Auth::user();
+
         $post->viewed += 1;
         $post->save();
 
-        return view('post/show', compact('post'));
+        $favorite = false;
+        if ($user) {
+            $favorite = Favorite::where('post_id', '=', $post->id)
+                ->where('user_id', '=', $user->id)
+                ->first();
+        }
+
+        $recommend = $post->recommend();
+
+        return view('post/show', compact('post', 'recommend', 'favorite'));
     }
 
     public function update(Request $request, Post $post)
@@ -116,7 +135,12 @@ class PostController extends Controller
         ]);
 
         $query = request('query');
-        $posts = Post::where('title', 'like', "%{$query}%")->paginate(10);
-        return view('post/search', compact('posts', 'query'));
+        $posts = Post::where('title', 'like', "%{$query}%")
+            ->orWhere('content', 'like', "%{$query}%")
+            ->paginate(10);
+
+        $post = new Post();
+        $recommend = $post->recommend();
+        return view('post/search', compact('posts', 'query', 'recommend'));
     }
 }

@@ -52,5 +52,6 @@ Route::post('/register', "\App\Http\Controllers\RegisterController@register");
 
 
 Route::resource('/post/logs', 'PostLogsController');
+Route::resource('/favorite', 'FavoriteController');
 
 include_once("admin.php");
